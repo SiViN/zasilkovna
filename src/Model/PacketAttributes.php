@@ -389,6 +389,22 @@ final class PacketAttributes implements IModel
      */
     public function toArray(): array
     {
-        return get_object_vars($this);
+        $ret = [];
+
+        foreach (get_object_vars($this) as $key => $value) {
+            if (is_object($value) === false) {
+                $ret[$key] = $value;
+                continue;
+            }
+
+            if ($value instanceof IModel) {
+                $ret[$key] = $value->toArray();
+                continue;
+            }
+
+            throw new \InvalidArgumentException(sprintf('Property %s has unsupported type of value.', $key));
+        }
+
+        return $ret;
     }
 }
