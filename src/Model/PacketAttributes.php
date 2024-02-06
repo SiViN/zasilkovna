@@ -52,6 +52,8 @@ final class PacketAttributes implements IModel
 
     private ?string $customerBarcode;
 
+    private ?Size $size;
+
 
     public function __construct(
         string $number,
@@ -372,6 +374,15 @@ final class PacketAttributes implements IModel
         $this->customerBarcode = $customerBarcode;
     }
 
+    public function getSize(): ?Size
+    {
+        return $this->size;
+    }
+
+    public function setSize(?Size $size): void
+    {
+        $this->size = $size;
+    }
 
     /**
      * @return mixed[]
